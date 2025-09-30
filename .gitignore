@@ -1,0 +1,26 @@
+# -----------------------------
+# Operating System & IDE Files
+# -----------------------------
+.DS_Store
+Thumbs.db
+.vscode/
+
+# -----------------------------
+# Dependency Directories
+# -----------------------------
+node_modules/
+/dist
+/build
+
+# -----------------------------
+# Log and Temporary Files
+# -----------------------------
+*.log
+*.tmp
+*.bak
+
+# -----------------------------
+# Chart.js Specific (if you download it locally)
+# -----------------------------
+# You are using a CDN, but good to include if you ever switch to local
+# /Chart.js/
