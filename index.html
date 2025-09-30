@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarsWasteNet - MIRU System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+    <div class="stars-bg"></div>
+    <div class="mars-glow"></div>
+
+    <nav>
+        <div class="logo" onclick="showSection('dashboard')">
+            <div class="logo-icon">🛰️</div>
+            <span>MarsWasteNet</span>
+            <span class="badge">MIRU</span>
+        </div>
+        <div class="nav-links">
+            <a onclick="showSection('dashboard')" class="active">Dashboard</a>
+            <a onclick="showSection('participation')">Participation</a>
+            <a onclick="showSection('colony')">Colony Map</a>
+            <a onclick="showSection('stem')">STEM Hub</a>
+            <div class="auth-buttons" id="authButtons">
+                <button class="btn-login" onclick="openLoginModal()">Log In</button>
+                <button class="btn-signup" onclick="openSignupModal()">Sign Up</button>
+            </div>
+            <div class="user-info" id="userInfo">
+                <span id="userName" style="color: #ccd6f6; font-weight: bold;"></span>
+                <div class="user-avatar" id="userAvatar"></div>
+                <button class="btn-logout" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1>🚀 Mars Colony Waste Management Network</h1>
+        <p>Real-time monitoring and control of waste processing systems for sustainable Mars colonization. Track efficiency metrics, engage with community innovations, and contribute to humanity's frontier expansion.</p>
+    </div>
+
+    <div class="container">
+        <div id="dashboard" class="content-section active">
+            <div class="grid-layout">
+                <div>
+                    <div class="card">
+                        <h2><span class="live-indicator"></span>📊 Daily Processing Status</h2>
+                        <div class="stats-grid">
+                            <div class="stat-box">
+                                <div class="stat-value"><span>♻️</span><span id="kgProcessed">124</span> kg</div>
+                                <div class="stat-label">Processed Today</div>
+                            </div>
+                            <div class="stat-box red">
+                                <div class="stat-value"><span>⚡</span><span id="yearData">18948</span> kg</div>
+                                <div class="stat-label">5-Year Total</div>
+                            </div>
+                            <div class="stat-box orange">
+                                <div class="stat-value"><span>📊</span><span id="efficiency">94</span>%</div>
+                                <div class="stat-label">System Efficiency</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 2rem;">
+                        <h2>📈 Processing Trends</h2>
+                        <div class="chart-container"><canvas id="trendsChart"></canvas></div>
+                    </div>
+
+                    <div class="card" style="margin-top: 2rem;">
+                        <h2>🔄 Waste Type Distribution</h2>
+                        <div class="pie-chart-container"><canvas id="pieChart"></canvas></div>
+                    </div>
+
+                    <div class="card" style="margin-top: 2rem;">
+                        <h2>⚡ System Efficiency Over Time</h2>
+                        <div class="chart-container"><canvas id="efficiencyChart"></canvas></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="card">
+                        <h2>💡 Community Innovation Hub</h2>
+                        <div style="text-align: center;">
+                            <button class="heart-btn" id="likeBtn">❤️</button>
+                            <div class="like-counter"><span id="likeCount">0</span></div>
+                        </div>
+                        <div style="background: rgba(20, 25, 40, 0.8); padding: 1rem; border-radius: 6px; margin-bottom: 1rem;">
+                            <div style="color: #8892b0; font-size: 0.85rem;">Community Ideas</div>
+                            <div style="color: #ccd6f6; font-size: 1.5rem; margin-top: 0.5rem;" id="ideaCount">0</div>
+                        </div>
+                        <button class="btn-view" onclick="showIdeas()">View All Ideas</button>
+                        <p style="color: #8892b0; text-align: center; margin: 1rem 0;">Join the frontier of innovation</p>
+                        <button class="btn-contribute" onclick="openIdeaModal()">Contribute Ideas</button>
+                    </div>
+
+                    <div class="card" style="margin-top: 2rem;">
+                        <h2><span class="live-indicator"></span>🌍 Active Colonies</h2>
+                        <div style="background: rgba(20, 25, 40, 0.9); padding: 1.2rem; border-radius: 8px; margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem;">
+                                <span style="color: #8892b0;">Olympus Mons Base</span>
+                                <span style="color: #4ade80; font-weight: bold;">Online</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem;">
+                                <span style="color: #8892b0;">Valles Marineris</span>
+                                <span style="color: #4ade80; font-weight: bold;">Online</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span style="color: #8892b0;">Elysium Planitia</span>
+                                <span style="color: #ff9933; font-weight: bold;">Maintenance</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 2rem;">
+                        <h2>💎 Resource Recovery</h2>
+                        <div class="chart-container" style="height: 200px;"><canvas id="resourceChart"></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="participation" class="content-section">
+            <h2 style="color: #ff6b4a; font-size: 2rem; margin-bottom: 1rem;">🤝 Participation Center</h2>
+            <p style="color: #8892b0; margin-bottom: 2rem;">Upload data, join challenges, and contribute to Mars colonization!</p>
+        </div>
+
+        <div id="colony" class="content-section">
+            <h2 style="color: #ff6b4a; font-size: 2rem; margin-bottom: 1rem;">🗺️ Colony Map</h2>
+            <p style="color: #8892b0; margin-bottom: 2rem;">Interactive Mars colony map visualization.</p>
+        </div>
+
+        <div id="stem" class="content-section">
+            <h2 style="color: #ff6b4a; font-size: 2rem; margin-bottom: 1rem;">🎯 STEM Hub</h2>
+            <p style="color: #8892b0; margin-bottom: 2rem;">Join STEM challenges and collaborate with innovators.</p>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <h3>🚀 Login to MarsWasteNet</h3>
+            <form onsubmit="login(event)">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter password" required>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="btn-close" onclick="closeModal('loginModal')">Cancel</button>
+                    <button type="submit" class="btn-submit">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <h3>🌟 Join MarsWasteNet</h3>
+            <form onsubmit="signup(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="signupName" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="signupEmail" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="signupPassword" placeholder="Create password" required>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="btn-close" onclick="closeModal('signupModal')">Cancel</button>
+                    <button type="submit" class="btn-submit">Sign Up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Idea Modal -->
+    <div class="modal" id="ideaModal">
+        <div class="modal-content">
+            <h3>💡 Contribute Your Innovation</h3>
+            <form onsubmit="submitIdea(event)">
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" id="ideaName" placeholder="Your name" required>
+                </div>
+                <div class="form-group">
+                    <label>Idea Title</label>
+                    <input type="text" id="ideaTitle" placeholder="Brief title" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="ideaDesc" placeholder="Describe your innovation..." required></textarea>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="btn-close" onclick="closeModal('ideaModal')">Cancel</button>
+                    <button type="submit" class="btn-submit">Submit Idea</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Ideas View Modal -->
+    <div class="modal" id="ideasViewModal">
+        <div class="modal-content">
+            <h3>💡 Community Ideas</h3>
+            <div id="ideasList"></div>
+            <div class="modal-buttons">
+                <button class="btn-close" onclick="closeModal('ideasViewModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
