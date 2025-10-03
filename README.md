@@ -25,4 +25,31 @@ Idea Validation: A simple "Like" feature provides instant community feedback, he
 
 Community Building: Features sections for Participation, Colony Map, and a STEM Hub to foster a network of global space enthusiasts and problem-solvers.
 
+## Setup Instructions
+
+### Environment Variables
+
+This project uses Firebase for authentication and data storage. To run the application, you need to configure your Firebase credentials:
+
+1. Copy the `.env.example` file to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Fill in your Firebase configuration values in the `.env` file. You can obtain these from your Firebase project settings:
+   - Go to [Firebase Console](https://console.firebase.google.com/)
+   - Select your project (or create a new one)
+   - Navigate to Project Settings > General
+   - Scroll down to "Your apps" and copy the configuration values
+
+3. **IMPORTANT**: Never commit your `.env` file to version control. The `.gitignore` file is configured to exclude it.
+
+### Security Best Practices
+
+- **Never** hardcode API keys directly in source code
+- **Never** commit `.env` files to version control
+- Use environment variables for all sensitive configuration
+- Regularly rotate API keys if they are accidentally exposed
+- If an API key is leaked, immediately revoke it in Firebase Console and generate a new one
+
 
