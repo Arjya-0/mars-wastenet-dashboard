@@ -20,6 +20,13 @@ node_modules/
 *.bak
 
 # -----------------------------
+# Environment Variables
+# -----------------------------
+.env
+.env.local
+.env.*.local
+
+# -----------------------------
 # Chart.js Specific (if you download it locally)
 # -----------------------------
 # You are using a CDN, but good to include if you ever switch to local
